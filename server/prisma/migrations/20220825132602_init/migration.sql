@@ -1,3 +1,5 @@
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
 -- CreateTable
 CREATE TABLE "accounts" (
     "acc_id" UUID NOT NULL DEFAULT uuid_generate_v4(),
@@ -6,7 +8,7 @@ CREATE TABLE "accounts" (
     "password" VARCHAR NOT NULL,
     "gender" VARCHAR(1) NOT NULL,
     "is_admin" BOOLEAN NOT NULL,
-    "profile_dir" VARCHAR DEFAULT ('url/storage/'::text || (acc_id)::text),
+    "profile_dir" VARCHAR,
 
     CONSTRAINT "accounts_pkey" PRIMARY KEY ("acc_id")
 );
@@ -22,7 +24,7 @@ CREATE TABLE "services" (
     "level_of_event" VARCHAR,
     "credit_point" INTEGER DEFAULT 0,
     "created_at" DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "service_dir" VARCHAR DEFAULT ((('url/storage/'::text || (teacher_id)::text) || '/service/'::text) || (service_id)::text),
+    "service_dir" VARCHAR,
     "teacher_id" UUID NOT NULL,
 
     CONSTRAINT "services_pkey" PRIMARY KEY ("service_id")
